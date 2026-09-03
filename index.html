@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodFlow Delivery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Lilita+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="bg-shape bg-shape-a" aria-hidden="true"></div>
+<div class="bg-shape bg-shape-b" aria-hidden="true"></div>
+
+<main class="delivery-shell">
+    <aside class="menu-panel" aria-label="Destaques do cardapio">
+        <h2 class="panel-title">Destaques de hoje</h2>
+        <div class="offer-card">
+            <p class="offer-tag">Entrega gratis</p>
+            <h3>Seu pedido!</h3>
+            <p>Selecione os itens no nosso cardápio abaixo.</p>
+        </div>
+        <div class="quick-list" id="cardapioContainer">
+            <div class="quick-item">Carregando cardápio...</div>
+        </div>
+    </aside>
+
+    <section class="chat-shell">
+        <header class="topbar">
+            <div class="brand">
+                <span class="logo" aria-hidden="true">B</span>
+                <div>
+                    <h1 class="title">FoodFlow Delivery</h1>
+                    <p class="subtitle">Assistente de pedidos em tempo real</p>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <span class="chip">Abertos agora | 30-45 min</span>
+                <button id="themeToggle" class="theme-btn" type="button">Noite</button>
+            </div>
+        </header>
+
+        <iframe id="chatIframe" class="chat-iframe" src="/static/chat.html" frameborder="0" allow="same-origin" title="Chat de pedidos"></iframe>
+    </section>
+</main>
+
+<script src="/static/app.js"></script>
+
+</body>
+</html>

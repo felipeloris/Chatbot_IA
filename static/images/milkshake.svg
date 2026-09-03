@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Milkshake">
+  <rect width="64" height="64" rx="14" fill="#fff4e6"/>
+  <path d="M24 23h16l-2.5 25c-.2 2-1.9 3.5-3.9 3.5h-3.2c-2 0-3.7-1.5-3.9-3.5L24 23z" fill="#f7a1bc"/>
+  <path d="M22 22c0-5 4.5-9 10-9s10 4 10 9H22z" fill="#fff2f7"/>
+  <circle cx="32" cy="18" r="3.5" fill="#ff6f91"/>
+  <path d="M38 14l10-6" stroke="#6dc76e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M27 29h10" stroke="#ffd5e0" stroke-width="2" stroke-linecap="round"/>
+  <path d="M28 35h8" stroke="#ffd5e0" stroke-width="2" stroke-linecap="round"/>
+</svg>

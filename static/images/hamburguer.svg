@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hamburguer">
+  <rect width="64" height="64" rx="14" fill="#fff4e6"/>
+  <path d="M14 29c2-8 10-13 18-13s16 5 18 13H14z" fill="#f0a63b"/>
+  <path d="M15 31h34c0 4-2 8-5 8H20c-3 0-5-4-5-8z" fill="#6fbe55"/>
+  <path d="M12 39h40c0 7-5 11-11 11H23c-6 0-11-4-11-11z" fill="#8b4a2b"/>
+  <path d="M16 45h32c-2 3-5 5-9 5H25c-4 0-7-2-9-5z" fill="#f3b253"/>
+  <circle cx="24" cy="24" r="1.4" fill="#fff7d6"/>
+  <circle cx="31" cy="22" r="1.4" fill="#fff7d6"/>
+  <circle cx="39" cy="24" r="1.4" fill="#fff7d6"/>
+</svg>

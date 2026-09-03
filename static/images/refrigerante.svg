@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Refrigerante">
+  <rect width="64" height="64" rx="14" fill="#fff4e6"/>
+  <path d="M30 10h4v8h-4z" fill="#7c4a2d"/>
+  <path d="M34 10h8v3h-8z" fill="#7c4a2d"/>
+  <path d="M22 18h20l-2 32c-.2 2.3-2.1 4-4.4 4h-7.2c-2.3 0-4.2-1.7-4.4-4L22 18z" fill="#b84f34"/>
+  <path d="M25 22h14l-1.5 25H26.5L25 22z" fill="#8e2f1f"/>
+  <path d="M27 24c5 3 5 10 10 13" fill="none" stroke="#f6d4c7" stroke-width="2.4" stroke-linecap="round"/>
+</svg>

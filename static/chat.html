@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Lilita+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-1: #fff6eb;
+            --bg-2: #ffe8d2;
+            --surface: rgba(255, 255, 255, 0.88);
+            --line: #ffd8b0;
+            --text: #3b1e0f;
+            --muted: #8a5c3c;
+            --primary: #ff5a2a;
+            --bubble-user: linear-gradient(135deg, #ff5a2a, #ff8f1f);
+            --bubble-bot: #fff3e0;
+            --input-bg: #fff;
+        }
+
+        body[data-theme="dark"] {
+            --bg-1: #2b1209;
+            --bg-2: #401708;
+            --surface: rgba(39, 17, 9, 0.88);
+            --line: #6e3522;
+            --text: #ffe7d0;
+            --muted: #d19a7f;
+            --primary: #ff6e36;
+            --bubble-user: linear-gradient(135deg, #ff6e36, #ff9b2b);
+            --bubble-bot: #4a2314;
+            --input-bg: #2c140c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: "Barlow", "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            background: var(--surface);
+        }
+
+        body {
+            display: grid;
+            grid-template-rows: 1fr auto;
+            overflow-y: hidden;
+        }
+
+        .messages {
+            padding: 18px;
+            padding-bottom: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            scroll-behavior: smooth;
+            scroll-padding-bottom: 48px;
+            contain: content;
+        }
+
+        .message {
+            max-width: 78%;
+            padding: 12px 14px;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            line-height: 1.45;
+            white-space: pre-wrap;
+            word-break: break-word;
+            border: 1px solid transparent;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: var(--bubble-user);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(255, 90, 42, 0.25);
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background: var(--bubble-bot);
+            color: var(--text);
+            border-color: var(--line);
+        }
+
+        .message.error {
+            align-self: flex-start;
+            background: rgba(255, 123, 144, 0.14);
+            border-color: rgba(255, 123, 144, 0.35);
+            color: var(--text);
+        }
+
+        .message.typing {
+            min-width: 66px;
+        }
+
+        .typing-dots {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            height: 10px;
+        }
+
+        .typing-dots span {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: var(--muted);
+            animation: dot 1s infinite ease-in-out;
+        }
+
+        .typing-dots span:nth-child(2) { animation-delay: 0.15s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes dot {
+            0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .composer {
+            border-top: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px;
+        }
+
+        .input {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            background: var(--input-bg);
+            color: var(--text);
+            padding: 10px 12px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 90, 42, 0.2);
+        }
+
+        .send {
+            border: 0;
+            border-radius: 10px;
+            padding: 0 14px;
+            min-width: 110px;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, var(--primary), #ff8f1f);
+            cursor: pointer;
+            transition: filter 0.12s ease;
+        }
+
+        .send:hover {
+            filter: brightness(1.06);
+        }
+
+        .send:disabled {
+            opacity: 0.68;
+            cursor: wait;
+        }
+    </style>
+</head>
+<body>
+
+<section class="messages" id="messages" aria-live="polite">
+    <div class="message bot">Bem-vindo ao FoodFlow! Me diga seu pedido e eu te ajudo a finalizar.</div>
+</section>
+
+<footer class="composer">
+    <input id="pergunta" class="input" placeholder="Ex: quero 1 hamburguer, 1 batata e 1 coca" autocomplete="off">
+    <button id="btnEnviar" class="send">Enviar</button>
+</footer>
+
+<script>
+const THEME_KEY = "foodflow_theme";
+
+function aplicarTema(tema) {
+    document.body.setAttribute("data-theme", tema);
+    localStorage.setItem(THEME_KEY, tema);
+}
+
+function scrollParaFinal() {
+    const container = document.getElementById("messages");
+    setTimeout(() => {
+        container.scrollTop = container.scrollHeight;
+    }, 0);
+}
+
+function adicionarMensagem(texto, tipo) {
+    const container = document.getElementById("messages");
+    const el = document.createElement("div");
+    el.className = `message ${tipo}`;
+    el.textContent = texto;
+    container.appendChild(el);
+    scrollParaFinal();
+}
+
+function mostrarDigitando() {
+    const container = document.getElementById("messages");
+    const el = document.createElement("div");
+    el.className = "message bot typing";
+    el.innerHTML = '<span class="typing-dots"><span></span><span></span><span></span></span>';
+    container.appendChild(el);
+    scrollParaFinal();
+    return el;
+}
+
+async function enviar() {
+    const input = document.getElementById("pergunta");
+    const botao = document.getElementById("btnEnviar");
+    const pergunta = input.value.trim();
+
+    if (!pergunta) {
+        return;
+    }
+
+    adicionarMensagem(pergunta, "user");
+    input.value = "";
+    botao.disabled = true;
+    botao.textContent = "Processando...";
+    const digitandoEl = mostrarDigitando();
+
+    try {
+        const response = await fetch("http://127.0.0.1:8000/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ pergunta: pergunta })
+        });
+
+        digitandoEl.remove();
+
+        if (!response.ok) {
+            adicionarMensagem("Nao consegui processar seu pedido agora.", "error");
+            return;
+        }
+
+        const data = await response.json();
+        adicionarMensagem(data.resposta || "Sem resposta da cozinha digital.", "bot");
+    } catch (error) {
+        digitandoEl.remove();
+        adicionarMensagem("Falha de conexao com o servidor de pedidos.", "error");
+    } finally {
+        botao.disabled = false;
+        botao.textContent = "Enviar";
+        input.focus();
+    }
+}
+
+document.getElementById("btnEnviar").addEventListener("click", enviar);
+
+document.getElementById("pergunta").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        enviar();
+    }
+});
+
+const temaSalvo = localStorage.getItem(THEME_KEY);
+aplicarTema(temaSalvo === "light" ? "light" : "dark");
+</script>
+
+</body>
+</html>
