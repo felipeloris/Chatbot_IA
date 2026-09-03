@@ -1,3 +1,43 @@
 {
-    "python-envs.defaultEnvManager": "ms-python.python:system"
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#04446c80",
+    "activityBar.activeBorder": "#1b050e",
+    "activityBar.background": "#04446c80",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#000000",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "sash.hoverBorder": "#04446c80",
+    "statusBar.background": "#02253b80",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#04446c80",
+    "statusBarItem.remoteBackground": "#b90674",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#02253b80",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#02253b99",
+    "titleBar.inactiveForeground": "#e7e7e799",
+    "commandCenter.border": "#e7e7e799",
+    "activityBarTop.activeBackground": "#04446c80",
+    "activityBarTop.background": "#04446c80",
+    "activityBarTop.foreground": "#e7e7e7",
+    "activityBarTop.inactiveForeground": "#e7e7e799",
+    "commandCenter.foreground": "#e7e7e7",
+    "statusBar.debuggingBackground": "#02253b80",
+    "statusBar.debuggingForeground": "#e7e7e7"
+  },
+  "peacock.color": "#02253b80",
+  "debug.internalConsoleOptions": "neverOpen",
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "DotJoshJohnson.xml"
+  },  
+  "git.autofetch": false,
+  "workbench.colorTheme": "Dark Modern",
+  "python-envs.defaultEnvManager": "ms-python.python:system",
 }
